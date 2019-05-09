@@ -307,10 +307,12 @@ bool operator == (const Point &p1, const Point& p2)
 
     return p1.x==p2.x&&p1.y==p2.y;
 }
-void operator - (Point &p1)
+Point operator - (Point &p1)
 {
-    p1.x = p1.x*-1;
-    p1.y = p1.y*-1;
+    Point ans;
+    ans.x = p1.x *-1;
+    ans.y = p1.y *-1;
+    return ans;
 }
 bool operator > (const Point &p1, const Point& p2)
 {
