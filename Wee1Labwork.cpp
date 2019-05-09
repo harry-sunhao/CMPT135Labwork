@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 struct RationalNumber
@@ -17,6 +19,17 @@ struct StudentRecord
     float test, midterm, final; //test (20%), midterm (30%) and final (50%)
     char letterGrade;
 };
+string CreateRandomName(int length)
+{
+    string name;
+    char a=rand()%('Z'-'A')+'A';
+    name=name+a;
+    for (int i = 1; i < length; ++i) {
+        char a=rand()%('z'-'a')+'a';
+        name=name+a;
+    }
+    return name;
+}
 double Q6_toDouble(RationalNumber n)
 {
     return (n.a)*1.0/n.b;
@@ -128,7 +141,15 @@ char getGrade(StudentRecord s)
 }
 void viewRecord(StudentRecord s)
 {
-    cout<<s.name<<" the grade is "<<s.letterGrade<<endl;
+    cout<<"The student name is ";
+    cout<<s.name;
+    cout<<", the test grade is ";
+    cout<<s.test;
+    cout<<", the midterm grade is ";
+    cout<<s.midterm;
+    cout<<", the Final grade is ";
+    cout<<s.final;
+    cout<<", the grade is "<<s.letterGrade<<endl;
 }
 void Q11()
 {
@@ -152,16 +173,23 @@ void Q12()
     StudentRecord *s=new StudentRecord[size];
     for (int i = 0; i < size; ++i) {
         cout << "Enter the student name";
-        cin >> s[i].name;
+        //cin >> s[i].name;
+        s[i].name=CreateRandomName(5);
         cout << "Enter the test grade";
-        cin >> s[i].test;
+        //cin >> s[i].test;
+        s[i].test=rand()%100;
         cout << "Enter the midterm grade";
-        cin >> s[i].midterm;
+        //cin >> s[i].midterm;
+        s[i].midterm=rand()%100;
         cout << "Enter the Final grade";
-        cin >> s[i].final;
+        //cin >> s[i].final;
+        s[i].final=rand()%100;
         s[i].letterGrade = getGrade(s[i]);
-        viewRecord(s[i]);
     }
+    for (int j = 0; j < size; ++j) {
+        viewRecord(s[j]);
+    }
+    delete []s;
 }
 void Q13_ViewRecord(StudentRecord s[],int size,char g)
 {
@@ -206,13 +234,54 @@ void Q16_printStudentRecordsSorted(StudentRecord s[],int size)
                 s[j+1]=temp;
             }
         }
-    }       
+    }
+}
+void Q17()
+{
+    int size;
+    cout<<"Enter a array size";
+    cin>>size;
+    StudentRecord *s=new StudentRecord[size];
+    for (int i = 0; i < size; ++i) {
+        cout << "Enter the student name";
+        //cin >> s[i].name;
+        s[i].name=CreateRandomName(5);
+        cout << "Enter the test grade";
+        //cin >> s[i].test;
+        s[i].test=rand()%90+10;
+        cout << "Enter the midterm grade";
+        //cin >> s[i].midterm;
+        s[i].midterm=rand()%50+60;
+        cout << "Enter the Final grade";
+        //cin >> s[i].final;
+        s[i].final=rand()%40+60;
+        s[i].letterGrade = getGrade(s[i]);
+    }
+    for (int j = 0; j < size; ++j) {
+        viewRecord(s[j]);
+    }
+    cout<<"Enter your need to find the grade ";
+    char grade;
+    cin>>grade;
+    Q13_ViewRecord(s,size,grade);
+    cout<<"Enter your need to find the name ";
+    string name;
+    cin>>name;
+    viewRecord(Q14_searchName(s,size,name));
+    cout<<"The Top studentRecord is ";
+    viewRecord(Q15_getTopStudentRecord(s,size));
+    cout<<endl;
+    Q16_printStudentRecordsSorted(s,size);
+    for (int j = 0; j < size; ++j) {
+        viewRecord(s[j]);
+    }
+    delete []s;
 }
 int main()
 {
     RationalNumber n;
     n.a=1;
     n.b=3;
-    cout<<Q6_toDouble(n);
+    Q17();
 }
 
