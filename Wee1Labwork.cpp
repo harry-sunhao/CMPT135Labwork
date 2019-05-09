@@ -2,8 +2,13 @@
 #include <string>
 #include <ctime>
 #include <cstdlib>
-using namespace std;
+#include <cmath>
 
+using namespace std;
+struct Point
+{
+    double x,y;
+};
 struct RationalNumber
 {
     int a,b;
@@ -277,6 +282,60 @@ void Q17()
     }
     delete []s;
 }
+Point operator + (const Point& p1, const Point& p2)
+{
+    Point ans;
+    ans.x = p1.x + p2.x;
+    ans.y = p1.y + p2.y;
+    return ans;
+}
+void operator ++ (Point &p1)
+{
+    p1.x = p1.x+1;
+    p1.y = p1.y+1;
+}
+
+Point operator - (const Point &p1, const Point& p2)
+{
+    Point ans;
+    ans.x = p1.x - p2.x;
+    ans.y = p1.y - p2.y;
+    return ans;
+}
+bool operator == (const Point &p1, const Point& p2)
+{
+
+    return p1.x==p2.x&&p1.y==p2.y;
+}
+void operator - (Point &p1)
+{
+    p1.x = p1.x*-1;
+    p1.y = p1.y*-1;
+}
+bool operator > (const Point &p1, const Point& p2)
+{
+    double distance1,distance2;
+    distance1= sqrt(p1.x*p1.x+p1.y*p1.y);
+    distance2= sqrt(p2.x*p2.x+p2.y*p2.y);
+    return distance1>distance2;
+}
+int GetQuadrant(const Point p1)
+{
+    if(p1.x>0&&p1.y>0)
+        return 1;
+    if(p1.x>0&&p1.y<0)
+        return 4;
+    if(p1.x<0&&p1.y>0)
+        return 2;
+    if(p1.x<0&&p1.y<0)
+        return 3;
+}
+bool operator && (const Point &p1, const Point& p2)
+{
+    return GetQuadrant(p1)==GetQuadrant(p2);
+
+}
+
 int main()
 {
     RationalNumber n;
