@@ -51,6 +51,8 @@ void Q7_standardize(RationalNumber &n)
 int getGcd(RationalNumber n)
 {
     int small;
+    if(n.a==0)
+        return n.b;
     if(n.a>n.b)
         small=n.b;
     else
