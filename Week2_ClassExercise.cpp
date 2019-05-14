@@ -132,7 +132,7 @@ class Rectangle
     }
     void print()
     {
-        cout<<"This rectangle's length is "<<length<<" and width is "<<width<<" , the area is "<<getArea()<<" and perimeter is "<<getPerimeter()<<endl;
+        cout<<"length is "<<length<<" and width is "<<width<<" , the area is "<<getArea()<<" and perimeter is "<<getPerimeter()<<endl;
     }
 };
 Rectangle::Rectangle(double newLength, double newWidth)
@@ -140,62 +140,31 @@ Rectangle::Rectangle(double newLength, double newWidth)
     setLength(newLength);
     setWidth(newWidth);
 }
+void Rectangle_Test()
+{
+	Rectangle r1,r2(3,4),r3(1,2);
+	Rectangle r4=r2;
+	cout<<"r1 length = "<<r1.getLength()<<endl;
+	cout<<"r2 width = "<<r2.getWidth()<<endl;
+	cout<<"r3 area = "<<r3.getArea()<<endl;
+	cout<<"r4 perimeter = "<<r4.getPerimeter()<<endl;
 
+	cout<<"Rectangle r1 is ";
+	r1.print();cout<<endl;
+	
+	cout<<"Rectangle r2 is ";
+	r2.print();cout<<endl;
+
+	r1.setLength(5);
+	r1.setWidth(9);
+	cout<<"After modifying its length and width, r1 is now ";
+	r1.print();cout<<endl;
+
+}
 int main()
 {
-    /*Rectangle R1,R2(2.0,2.0);
-    R1.print();
-    R2.print();
-    if(R1.getPerimeter()<R2.getPerimeter())
-    {
-        R1.setWidth(R2.getWidth()*2);
-        R1.setLength(R2.getLength()*2);
-    }
-    cout<<"After modify...."<<endl;
-    R1.print();
-    R2.print();
-    if(R1.getArea()>R2.getArea())
-        cout<<"Rectangle 1 has the largest area."<<endl;
-    else
-        cout<<"Rectangle 2 has the largest area."<<endl;
-		*/
-	//Point arr_p[10];
-	//for(int i=0;i<10;i++)
-	//{
-	//	cout<<"Point p["<<i<<"] = ";
-	//	arr_p[i].print();
-	//	cout<<endl;
-	//}
-	//Point *arr_pPtr=new Point[10];
-	//for(int i=0;i<10;i++)
-	//{
-	//	cout<<"Point p["<<i<<"] = ";
-	//	arr_pPtr[i].print();
-	//	cout<<endl;
-	//}
-	//delete [] arr_pPtr;
-	//Point p1,p2(1.0,2.0);
-	//Point p;
-	//Point &pRef=p;
-	//Point *pPtr=&p;
-	//p.setX(3.6);
-	//pRef.setY(-3.6);
-	//pPtr->setX(2.5);
-	//cout<<"The point you created is ";
-	//p.print();
-	//pRef.print();
-	//pPtr->print();
-	//cout<<"The x-coordinate of opint p1 is "<<p1.getX()<<endl;
-	//cout<<"The y-coordinate of opint p1 is "<<p1.getY()<<endl;
-	//cout<<"The x-coordinate of opint p2 is "<<p2.getX()<<endl;
-	//cout<<"The y-coordinate of opint p2 is "<<p2.getY()<<endl;
-	//cout<<"Point p1 = ";
-	//p1.print();
-	//cout<<endl;
-	//cout<<"Point p2 = ";
-	//p2.print();
-	//cout<<endl;
-	Line_Test();
+	Rectangle_Test();
+	//Line_Test();
 	system("Pause");
 	return 0;
 }
