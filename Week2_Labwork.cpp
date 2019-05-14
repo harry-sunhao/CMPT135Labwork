@@ -11,7 +11,7 @@ using namespace std;
 class Point
 {
 private:
-    float x, y;
+    float x, y;    
 public:
     //Constructor member function
     Point();
@@ -232,6 +232,12 @@ float Triangle::getPerimeter() {return side1+side2+side3;}
 void Triangle::print() 
 {
     cout<<"The Triangle is "<<side1<<", "<<side2<<", "<<side3<<" and the area is "<<getArea()<<" and the circumference is "<<getPerimeter()<<" ";
+    if (side1 == side2 && side1 == side3)
+        cout<<"This triangle is equilateral"<<endl;
+	else if (side1 == side2 || side1 == side3 || side2 == side3)    													
+        cout<<"This triangle is isosceles"<<endl;
+    else 
+        cout<<"This triangle is scalene"<<endl;
     
 }
 
