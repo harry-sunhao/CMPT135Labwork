@@ -92,6 +92,7 @@ int Point::getQuadrant(Point p1)
         return 2;
     if(p1.x<0&&p1.y<0)
         return 3;
+    
 }
 void Test_Q6()
 {
