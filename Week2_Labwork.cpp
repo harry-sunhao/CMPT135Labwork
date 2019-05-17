@@ -1,6 +1,6 @@
 #include<iostream>
 #include <cmath>
-
+#include <string>
 using namespace std;
 
 /*
@@ -11,7 +11,7 @@ using namespace std;
 class Point
 {
 private:
-    float x, y;    
+    float x, y;
 public:
     //Constructor member function
     Point();
@@ -92,7 +92,6 @@ int Point::getQuadrant(Point p1)
         return 2;
     if(p1.x<0&&p1.y<0)
         return 3;
-    
 }
 void Test_Q6()
 {
@@ -229,21 +228,132 @@ float Triangle::getArea()
     return sqrt(s*(s-side1)*(s-side2)*(s-side3));
 }
 float Triangle::getPerimeter() {return side1+side2+side3;}
-void Triangle::print() 
+void Triangle::print()
 {
-    cout<<"The Triangle is "<<side1<<", "<<side2<<", "<<side3<<" and the area is "<<getArea()<<" and the circumference is "<<getPerimeter()<<" ";
+    cout<<"3 sides are "<<side1<<", "<<side2<<", "<<side3<<" and the area is "<<getArea()<<" and the circumference is "<<getPerimeter()<<" ";
     if (side1 == side2 && side1 == side3)
         cout<<"This triangle is equilateral"<<endl;
-	else if (side1 == side2 || side1 == side3 || side2 == side3)    													
+    else if (side1 == side2 || side1 == side3 || side2 == side3)
         cout<<"This triangle is isosceles"<<endl;
-    else 
+    else
         cout<<"This triangle is scalene"<<endl;
-    
-}
 
+}
+void Q8_Test()
+{
+    Triangle t1,t2(2),t3(2,3),t4(3,4,5);
+    cout<<"t1 is ";t1.print();
+    cout<<"t1 side1 is "<<t1.getSide1()<<endl;
+    cout<<"t2 is ";t2.print();
+    cout<<"t2 side2 is "<<t2.getSide2()<<endl;
+    cout<<"t3 is ";t3.print();
+    cout<<"t3 side3 is "<<t3.getSide3()<<endl;
+    cout<<"t4 is ";t4.print();
+    cout<<"t4 arae is "<<t4.getArea()<<endl;
+    Triangle t5(3,3,5);
+    cout<<"t5 perimeter is "<<t5.getPerimeter();
+    t1.setSide1(3);
+    t1.setSide2(3);
+    t1.setSide3(4);
+    cout<<endl<<"After modifiy t1 is ";
+    t1.print();
+
+
+}
+class Course
+{
+private:
+    string name;
+    float test, midterm, final; //test (20%), midterm (30%) and final (50%)
+    char letterGrade;
+    char getGrade()
+    {
+        double g=test*0.2+midterm*0.3+test*0.5;
+        if(g<50)
+            return 'F';
+        else if(g<60)
+            return 'D';
+        else if(g<75)
+            return 'C';
+        else if(g<90)
+            return 'B';
+        return 'A';
+
+    }
+public:
+    Course();
+    Course(string T_name);
+    Course(string T_name,float T_test,float T_midterm,float T_final);
+    string getName();
+    float getTest();
+    float getMidterm();
+    float getFinal();
+    char getLetterGrade();
+
+    void setName(string newName);
+    void setTest(float newTest);
+    void setMidterm(float newMidterm);
+    void setFinal(float newFinal);
+
+    void print();
+};
+Course::Course()
+{
+    test=midterm=final=0;
+    letterGrade='F';
+    name="";
+}
+Course::Course(string T_name)
+{
+    name=T_name;
+    test=midterm=final=0;
+    letterGrade='F';
+}
+Course::Course(string T_name, float T_test, float T_midterm, float T_final)
+{
+    name=T_name;
+    test=T_test;
+    midterm=T_midterm;
+    final=T_final;
+    letterGrade=getGrade();
+}
+string Course::getName() {return name;}
+float Course::getTest() {return test;}
+float Course::getMidterm() {return midterm;}
+float Course::getFinal() {return final;}
+char Course::getLetterGrade() {return letterGrade;}
+
+void Course::setName(string newName) {name=newName;}
+void Course::setTest(float newTest) {test=newTest;letterGrade=getGrade();}
+void Course::setMidterm(float newMidterm) {midterm=newMidterm;letterGrade=getGrade();}
+void Course::setFinal(float newFinal) {final=newFinal;letterGrade=getGrade();}
+
+void Course::print() {cout<<getName()<<" 's test grade is "<<test<<", the midterm grade is "<<midterm;
+    cout<<", the Final grade is ";
+    cout<<final;
+    cout<<", the grade is "<<letterGrade<<endl;
+}
+void Q9_Test()
+{
+    Course s1,s2("Jlnki"),s3("Harry",100,100,100);
+    s3.print();
+    s3.setTest(10);
+    cout<<"After modifiy s3 is ";
+    s3.print();
+    cout<<"Enter the s1 name, test, midtem, final"<<endl;
+    string name;
+    float test,mid,final;
+    cin>>name>>test>>mid>>final;
+    s1.setName(name);
+    s1.setTest(test);
+    s1.setMidterm(mid);
+    s1.setFinal(final);
+    cout<<"After modifiy s1 is ";
+    s1.print();
+}
 int main()
 {
-    Q7_Test();
+    Q9_Test();
 
     system("Pause");
     return 0;
