@@ -225,7 +225,7 @@ void RationalNumber::print()
     cout << a << "/" << b;
 }
 
-int main()
+int RationalNumber_Test()
 {
     //Test constructors
     RationalNumber r1, r2(4, 6);
@@ -254,6 +254,193 @@ int main()
     delete r3;
     delete r4;
 
-    system("Pause");
+    //system("Pause");
     return 0;
+}
+class Complex
+{
+
+private:
+    double m_r;
+    double m_i;
+
+public:
+    Complex(const double r_=0, const double i_=0);
+    bool operator==(const Complex);
+    bool operator!=(const Complex);
+    Complex operator+(const Complex);
+    Complex operator-(const Complex);
+    Complex operator*(const Complex);
+    Complex operator/(const Complex);
+    //getter
+    double GetR()const;
+    double GetI()const;
+    //setter
+    void SetR(const double);
+    void SetI(const double);
+    //function
+    void print();
+};
+Complex::Complex(const double r_, const double i_){m_r=r_;m_i=i_;}
+double Complex::GetR()const
+{
+    return m_r;
+}
+
+double Complex::GetI()const
+{
+    return m_i;
+}
+
+void Complex::SetR(const double r_)
+{
+    m_r = r_;
+}
+void Complex::SetI(const double i_)
+{
+    m_i = i_;
+}
+
+bool Complex::operator==(const Complex b_)
+{
+    return (this->GetR() == b_.GetR() && this->GetI() == b_.GetI());
+}
+
+bool Complex::operator!=(const Complex b_)
+{
+    return (this->GetR() != b_.GetR() && this->GetI() != b_.GetI());
+}
+
+Complex Complex::operator+( const Complex b_)
+{
+    Complex ret(this->GetR()+b_.GetR(), this->GetI()+b_.GetI());
+    return ret;
+}
+
+Complex Complex::operator-(const Complex b_)
+{
+    Complex ret(this->GetR()-b_.GetR(), this->GetI()-b_.GetI());
+    return ret;
+}
+Complex Complex::operator*(const Complex b_)
+{
+    double a=this->GetR(), b=this->GetI();
+    double c=b_.GetR(), d=b_.GetI();
+
+    Complex ret(a*c-b*d, b*c+a*d);
+
+    return ret;
+}
+
+Complex Complex::operator/(const Complex b_)
+{
+    double a=this->GetR(), b=this->GetI();
+    double c=b_.GetR(), d=b_.GetI();
+    assert(c || d);
+
+    Complex ret((a*c+b*d)/(c*c+d*d), (b*c-a*d)/(c*c+d*d));
+
+    return ret;
+}
+void Complex::print() {cout<<GetR()<<"+"<<GetI()<<"i"<<endl;}
+class Money {
+
+public:
+
+    Money();
+    Money(int withDollars, int withCents);
+
+    Money operator +( const Money& amount2);
+    Money operator -( const Money& amount2);
+    bool operator ==(const Money& amount2);
+    friend ostream& operator <<(ostream& outputStream, const Money& amount);
+    friend istream& operator >>(istream& inputStream, Money& amount);
+
+    int getDollars() const { return dollars; }
+    int getCents() const { return cents; }
+
+    void setDollars(int);
+    void setCents(int);
+
+    Money percent(const Money& amount, double percentage) const;
+
+private:
+
+    int dollars;
+    int cents;
+};
+
+const int asCents(const Money& amount) {
+    int amountAsCents = amount.getCents() + amount.getDollars() * 100;
+    return amountAsCents;
+}
+Money::Money() {dollars=0;cents=0;}
+Money::Money(int withDollars, int withCents){setDollars(withDollars);setCents(withCents);}
+void Money::setDollars(int dollars) {this->dollars=dollars;}
+void Money::setCents(int Cents)
+{
+    if(Cents>99)
+    {
+        Cents=Cents-99;
+        setDollars(this->dollars+1);
+    }
+    this->cents=Cents;
+}
+Money Money::operator +(const Money& amount2) {
+    int centsSum = asCents(*this) + asCents(amount2);
+    int absAllCents = abs(centsSum);
+    int finalDollars = absAllCents / 100;
+    int finalCents = absAllCents % 100;
+    if (centsSum < 0) {
+        finalDollars = -finalDollars;
+        finalCents = -finalCents;
+    }
+    return Money(finalDollars, finalCents);
+}
+
+Money Money::operator -(const Money& amount2) {
+    int centsDifference = asCents(*this) - asCents(amount2);
+    int absAllCents = abs(centsDifference);
+    int finalDollars = absAllCents / 100;
+    int finalCents = absAllCents % 100;
+    if (centsDifference < 0) {
+        finalDollars = -finalDollars;
+        finalCents = -finalCents;
+    }
+    return Money(finalDollars, finalCents);
+}
+
+bool Money::operator ==(const Money& amount2) {
+    return ((this->getDollars() == amount2.getDollars())
+            && (this->getCents() == amount2.getCents()));
+}
+ostream& operator <<(ostream& outputStream, const Money& amount) {
+    int absDollars = abs(amount.dollars);
+    int absCents = abs(amount.cents);
+    if (amount.dollars < 0 || amount.cents < 0)
+        outputStream << "$-";
+    else
+        outputStream << '$';
+    outputStream << absDollars;
+    if (absCents >= 10)
+        outputStream << '.' << absCents;
+    else
+        outputStream << '.' << '0' << absCents;
+    return outputStream;
+}
+
+istream& operator >>(istream& inputStream, Money& amount) {
+    double amountAsDouble;
+    inputStream >> amountAsDouble;
+    amount.setDollars((int)amountAsDouble);
+    amount.setCents((amountAsDouble-amount.dollars)*100);
+    return inputStream;
+}
+int main()
+{
+    Money yourAmount, myAmount(10, 9);
+    cout << "Enter an amount of money: ";
+    cin >> yourAmount;
+    cout<<yourAmount<<endl;
+    cout<<myAmount<<endl;
 }
