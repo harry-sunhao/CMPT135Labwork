@@ -72,6 +72,7 @@ void Q15()
     for (int i=0; i<ans.getSize(); i++) {
         if(max<ans[i])
             max=ans[i];
+        
         if (min>ans[i]) {
             min=ans[i];
         }
