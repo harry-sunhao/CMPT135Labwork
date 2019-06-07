@@ -72,7 +72,6 @@ void Q15()
     for (int i=0; i<ans.getSize(); i++) {
         if(max<ans[i])
             max=ans[i];
-        
         if (min>ans[i]) {
             min=ans[i];
         }
@@ -298,7 +297,30 @@ ostream &operator<<(ostream &out, const SmartArray &L)
     out<<L[i];
     out<<"]";
     return out;
+}
+class SmartMatrix
+{
+private:
+        int rows;
+        SmartArray *M;
+public:
+//defult
+    SmartMatrix(){rows=0;}
+    SmartMatrix(int rows,SmartArray A[]){this->rows=rows;this->M=A;}
+    SmartMatrix(const SmartMatrix &Obj)
+    {
+        this->rows=Obj.rows;
+        if(this->rows>0)
+        {
+            this->M=new SmartArray [this->rows];
+    for(int i=0;i<this->rows;i++)
+    {
+    this->M[i]=Obj.M[i];
     }
+        }
+    }
+    
+};
 int main()
 {
     SmartArray L1;
@@ -328,3 +350,4 @@ int main()
     system("Pause");
     return 0;
 }
+
