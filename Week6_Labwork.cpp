@@ -260,7 +260,36 @@ void Q7()
     fout.close();
     return;
 }
-
+void printFile(ifstream fin)
+{
+    if(fin.eof())
+        return;
+    else
+    {
+        int x;
+        fin>>x;
+        printFile(fin);
+        cout<<x<<endl;
+    }
+}
+void Q8()
+{
+    /*
+    Write a C++ program that reads the randomNumbers.txt file you created in Q3 above and that prints the
+data in the file to the console output screen in reverse order; that is the first integer read will be printed
+last and the last integer read will be printed first. Remark: You are not allowed to use any array when you
+answer this question. Moreover remember that you don't know how many numbers are on the input file
+which means you must read until the end of file is reached.
+    */
+    ifstream fin("randomNumbers.txt");
+    if(fin.fail())
+    {
+        cout<<"Input stream fail"<<endl;
+        return;
+    }
+    printFile(fin);
+    return;
+}
 int main()
 {
     srand((unsigned)time(NULL));
