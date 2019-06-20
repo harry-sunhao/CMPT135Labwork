@@ -1,5 +1,8 @@
 #include<vector>
 #include <iostream>
+#include<cmath>
+#include<algorithm>
+
 using namespace std;
 
 void printVector(vector<int> X)
@@ -121,7 +124,84 @@ void Q9()
     }
     printVector(ans);
 }
-
+void insertIncreasing(vector<int> &a, const int x)
+{
+    a.push_back(x);
+    sort(a.begin(),a.end());
+}
+void insertGrouped(vector<int> &a, const int x)
+{
+    vector<int>::iterator it;
+    // even location
+    for (it=a.begin(); it<a.end(); it++) {
+        if (*it%2==0) {
+            break;
+        }
+    }
+    if (x%2==0) {
+        a.insert(it, x);
+    }
+    else
+    {
+        a.insert(it-1, x);
+    }
+    
+}
+void insertGroupedIncreasing(vector<int> &a, const int x)
+{
+    if (a.empty()) {
+        a.push_back(x);
+        return;
+    }
+    vector<int>::iterator it;
+    // even location
+    for (it=a.begin(); it<a.end(); it++) {
+        if (*it%2==0) {
+            break;
+        }
+    }
+    if (x%2==0) {
+        a.insert(it, x);
+    }
+    else
+    {
+        a.insert(it, x);
+    }
+    if (a.size()<3) {
+        return;
+    }
+    sort(a.begin(), it-1);
+    sort(it, a.end()-1);
+    
+    
+}
+void Q10()
+{
+    vector<int> a;
+    for (int i = 0; i < 5; i++)
+    {
+        insertIncreasing(a, pow(-1.0, i)*i);
+        printVector(a);
+    }
+}
+void Q11()
+{
+    vector<int> a;
+    for (int i = 0; i < 5; i++)
+    {
+        insertGrouped(a, i);
+        printVector(a);
+    }
+}
+void Q12()
+{
+    vector<int> a;
+    for (int i = 0; i < 5; i++)
+    {
+        insertGroupedIncreasing(a, i);
+        printVector(a);
+    }
+}
 int main()
 {
 //    vector<int> test;
@@ -134,7 +214,7 @@ int main()
 //    test1.push_back(2);
 //    removeDuplicates(test);
 //    printVector(test);
-    Q9();
+    Q11();
     system("Pause");
     return 0;
 }
