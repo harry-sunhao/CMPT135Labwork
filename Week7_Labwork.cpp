@@ -38,7 +38,7 @@ vector<int> operator *(vector<int> X,int n)
 {
     vector<int> ans;
     if (X.size()==0||n==0) {
-        return ;
+        return ans;
     }
     int index=0;
     for (int i=0; i<abs(n)*X.size(); i++) {
