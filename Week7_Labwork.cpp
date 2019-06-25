@@ -202,6 +202,61 @@ void Q12()
         printVector(a);
     }
 }
+struct Vehicle
+{
+	string make;
+	int year;
+	double hp; //horse power of the vehicle
+};
+void printVector(vector<Vehicle> X)
+{
+    for (int i=0; i<X.size(); i++) {
+		cout<<X[i].make<<" "<<X[i].year<<" "<<X[i].hp;
+		cout<<endl;
+    }
+    cout<<endl;
+}
+void swap(vector<Vehicle> &a,vector<Vehicle> &b)
+{
+    vector<Vehicle> temp;
+    temp=a;
+    a=b;
+    b=temp;
+}
+vector <Vehicle> readVehicleInventory(string path)
+{
+	ifstream fin;
+	fin.open(path);
+	if(fin.fail())
+		cout<<"Input file not found"<<endl;
+	Vehicle temp;
+	vector<Vehicle> ans;
+	while(fin.eof()==false)
+	{
+		fin>>temp.make;
+		fin>>temp.year;
+		fin>>temp.hp;
+		ans.push_back(temp);
+		//cout<<temp.make<<" "<<temp.year<<" "<<temp.hp<<endl;
+	}
+	fin.close();
+
+	return ans;
+}
+vector <Vehicle> reOrderObjects(vector<Vehicle> X)
+{
+	for(int i=0;i<X.size();i++)
+	{
+		for(int j=0;j<X.size()-1-i;j++)
+		{
+			if(X[j].make>X[j+1].make)
+			{
+				swap(X[j],X[j+1]);
+			}
+		}
+	}
+	return X;
+}
 int main()
 {
 //    vector<int> test;
