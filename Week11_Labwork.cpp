@@ -43,6 +43,21 @@ void selectionsort(int arr[],int first,int last)
         selectionsort(arr, first + 1, last);
     }
 }
+
+void insertionSort(int *arr,int start,int last)
+{
+    if(start>last)
+        return;
+
+    int key=arr[start];
+    int j=start-1;
+    while((j>=0) && (key<arr[j])){
+        arr[j+1]=arr[j];
+        j--;
+    }
+    arr[j+1]=key;
+    insertionSort(arr,start+1,last);
+}
 void towersofhanoi(int n,char a,char b,char c)
 {
     if (n==1)
@@ -106,55 +121,75 @@ void allSubsets(int n)
     }
     print_subset1(a,b,n,0);
 }
-bool isvalid(int **a,int x,int y)
+bool isvalid (int **a,int i,int j)
 {
-    int i=0,j=0;
-    for (i=0; i < 9; i++) {
-        if(i!=x&&a[i][y]==a[x][y])
-            return false;
-    }
-    for (j=0; j < 9; j++) {
-        if(j!=x&&a[x][j]==a[x][y])
-            return false;
-    }
-    for (i = 3 * (x / 3); i < 3 * (x / 3 + 1); i++) {
-        for (j = 3 * (y / 3); j < 3 * (y / 3 + 1); j++) {
-            if (i != x && j != y && a[i][j] == a[x][y])
-                return false;
-        }
-    }
-    return true;
-}
-bool fillSudokuBorad(int ** a,int n=9,int x=0,int y=0)
-{
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
-            if (a[i][j]==0)
-            {
-                for (int k = 1; k < 9; ++k) {
-                    a[i][j]=k;
-                    if(isvalid(a,i,j)&&fillSudokuBorad(a))
-                        return true;
-                    a[i][j]=0;
-                }
-                return false;
-            }
-        }
-    }
-    return true;
-}
-void f9(int x)
-{
-    //cout<<" "<<x<<endl;
-    if (x > 0)
+    for(int col=0;col<9;++col)
     {
-        f9(x-1);
-        cout<< x <<" ";
-        f9(x-1);
+        if(col!=j&&a[i][j]==a[i][col]) return false;
     }
+    for(int row=0;row<9;++row)
+    {
+        if(row!=i&&a[i][j]==a[row][j]) return false;
+    }
+    for(int l=i/3*3;l<i/3*3+3;++l)
+        for(int m=j/3*3;m<j/3*3+3;++m)
+        {
+            if(l!=i&&m!=j&&a[i][j]==a[l][m]) return false;
+        }
+    return true;
 }
+bool sloveSudokuBorad(int **a,int x,int y)
+{
+    //cout<<x<<", "<<y<<" "<<a[x][y]<<" "<<boolalpha<<isvalid(a,x,y)<<endl;
+    if(x==9)
+        return true;
+    if(y>=9)
+        return sloveSudokuBorad(a,x+1,0);
+    if(a[x][y]==0)
+    {
+        for (int i = 1; i <= 9; ++i) {
+            a[x][y]=i;
+            if(isvalid(a,x,y))
+            {
+                if (sloveSudokuBorad(a,x,y+1))
+                    return true;
+            }
+            a[x][y]=0;
+        }
+    }
+    else
+        return sloveSudokuBorad(a,x,y+1);
+    return false;
+}
+void fillSudokuBorad(int **a,int n)
+{
+    sloveSudokuBorad(a,0,0);
+}
+
 int main()
 {
+    int size = 6;
+    int *A = new int [size];
+    for (int i = 0; i < size; i++)
+        A[i] = rand() % 25;
+    cout << "Original Array\n\t";
+    for (int i = 0; i < size; i++)
+        cout << A[i] << " ";
+    cout << endl;
+    insertionSort(A, 0, size-1);
+    cout << "Sorted Array Array\n\t";
+    for (int i = 0; i < size; i++)
+        cout << A[i] << " ";
+    cout << endl;
+    int x;
+    do
+    {
+        cout << "Enter the number of elements (positive number please): ";
+        cin >> x;
+    } while (x <= 0);
+    cout << "All the subsets of the set {1,2,3,...,n} are" << endl;
+    allSubsets(x);
+
     const int n = 9;
     int **sudoku = new int*[n];
     for (int i = 0; i < n; i++)
