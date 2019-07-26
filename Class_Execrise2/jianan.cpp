@@ -195,7 +195,40 @@ ostream& operator << (ostream &outputStream, const Map<K, V> &m)
 	}
 	return outputStream;
 }
+template <class K, class V>
+int getIndexAtKey(const Map<K, V> &m,const K& k)
+{
+	for(int i=0;i<m.getSize();i++)
+	{
+		if(m.getKeyAtIndex(i)==k)
+			return i;
+	}
+	return -1;
+}
 
+template <class K,class V>
+void remove( Map<K, V> &m, const K &k)
+{
+	int index=getIndexAtKey(m,k);
+    while (index != -1)
+    {
+		K* arr1 = new K[m.getSize()];
+		V* arr2 = new V[m.getSize()];
+        for (int i = 0; i < index; i++)
+        {
+			arr1[i] = m.getKeyAtIndex(i);
+			arr2[i] = m.getValueAtIndex(i);
+		}
+		for (int i = index+1; i < m.getSize(); i++)
+        {
+			arr1[i-1] = m.getKeyAtIndex(i);
+			arr2[i-1] = m.getValueAtIndex(i);
+		}
+		const int size=m.getSize()-1;
+		m=Map<K,V>(arr1,arr2,size);
+		index=getIndexAtKey(m,k);
+    }
+}
 int main()
 {
 	srand(time(0));
@@ -207,7 +240,7 @@ int main()
 		int distance = rand()%40+20;
 		m1.append(city,distance);
 	}
-	cout<<"The map m1 is now...";
+	cout<<"The map m1 is now..."<<m1<<endl;
 	string key1=citiesArray[rand()%5];
 	remove(m1,key1);
 	cout<<"After removing all elements of m1 whose key is "<<key1<<", m1 becomes "<<m1<<endl;
@@ -218,9 +251,9 @@ int main()
 		int distance = rand()%3+1;
 		m2.append(distance,city);
 	}
-	cout<<"The map m2 is now...";
+	cout<<"The map m2 is now..."<<m2<<endl;
 	int key2=rand()%3+1;
-	remove(m2,key);
+	remove(m2,key2);
 	cout<<"After removing all elements of m2 whose key is "<<key1<<", m2 becomes "<<m1<<endl;
 	system("Pause");
 	return 0;
