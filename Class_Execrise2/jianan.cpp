@@ -207,7 +207,7 @@ int getIndexAtKey(const Map<K, V> &m,const K& k)
 }
 
 template <class K,class V>
-void remove( Map<K, V> &m, const K &k)
+void remove(Map<K, V> &m, const K &k)
 {
 	int index=getIndexAtKey(m,k);
     while (index != -1)
@@ -254,7 +254,7 @@ int main()
 	cout<<"The map m2 is now..."<<m2<<endl;
 	int key2=rand()%3+1;
 	remove(m2,key2);
-	cout<<"After removing all elements of m2 whose key is "<<key1<<", m2 becomes "<<m1<<endl;
+	cout<<"After removing all elements of m2 whose key is "<<key2<<", m2 becomes "<<m2<<endl;
 	system("Pause");
 	return 0;
 }
