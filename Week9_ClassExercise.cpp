@@ -116,6 +116,7 @@ int main()
 
     //Test type casting
     Ellipse e4 = c1;
+	
     cout << "e4: " << e4 << endl;
     cout << "c2 casted to ellipse: " << static_cast<Ellipse>(c2) << endl;
     
